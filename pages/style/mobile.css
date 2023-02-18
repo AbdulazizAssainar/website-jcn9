@@ -10,12 +10,12 @@ body {
     font-family: 'Century';
     background-color: #faf8f3;
     font-size: x-large;
-    color: white;
 }
 
 .header {
     height: 100%;
     width: 100%;
+    color: white;
     background-color: black;
 }
 
