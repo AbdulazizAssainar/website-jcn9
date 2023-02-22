@@ -13,26 +13,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const deviceType_1 = require("../modules/deviceType");
-const path_1 = require("../modules/path");
-const gallery_1 = __importDefault(require("./api/gallery"));
-const routes = express_1.default.Router();
-routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deviceType_1 = require("../../modules/deviceType");
+const path_1 = require("../../modules/path");
+const gallery = express_1.default.Router();
+gallery.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const dtype = yield deviceType_1.getDeviceType(req);
     if (dtype == "mobile") {
         console.log(dtype);
-        return res.sendFile(path_1.pagePath + "/mobile/index.html");
+        return res.status(301).redirect("/gallery/mobile");
     }
     if (dtype == "tablet") {
         console.log(dtype);
-        return res.sendFile(path_1.pagePath + "/notsup.html");
+        return res.status(301).redirect("/gallery/tablet");
     }
     if (dtype == "desktop") {
         console.log(dtype);
-        return res.sendFile(path_1.pagePath + "/desktop/index.html");
+        return res.status(301).redirect("/gallery/desktop");
     }
     res.send('unknowen device');
 }));
-routes.use('/gallery', gallery_1.default);
-exports.default = routes;
-//# sourceMappingURL=index.js.map
+gallery.get('/mobile', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.sendFile(path_1.pagePath + "/mobile/gallery.html");
+}));
+gallery.get('/tablet', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.sendFile(path_1.pagePath + "/desktop/gallery.html");
+}));
+gallery.get('/desktop', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.sendFile(path_1.pagePath + "/desktop/gallery.html");
+}));
+exports.default = gallery;
+//# sourceMappingURL=gallery.js.map

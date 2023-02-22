@@ -1,7 +1,7 @@
 import express from 'express';   
 import { getDeviceType } from '../modules/deviceType';
 import { pagePath } from '../modules/path';
-import olymp from './api/olymp';
+import gallery from './api/gallery';
 const routes = express.Router();
 
 routes.get('/', async (req, res) => { 
@@ -12,6 +12,6 @@ routes.get('/', async (req, res) => {
     res.send('unknowen device');
  });
 
- routes.use('/olymp', olymp)
+ routes.use('/gallery', gallery)
 
 export default routes;
